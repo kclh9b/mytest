@@ -1,4 +1,4 @@
-package study.mytest.Entity;
+package study.mytest.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(RoleUserId.class)
-public class RoleUser {
+public class RoleAccount {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,7 +22,7 @@ public class RoleUser {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    public RoleUser(Role role, Account account) {
+    public RoleAccount(Role role, Account account) {
         this.role = role;
         this.account = account;
     }

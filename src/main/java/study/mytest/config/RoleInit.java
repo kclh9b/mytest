@@ -2,8 +2,8 @@ package study.mytest.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import study.mytest.Entity.Role;
-import study.mytest.Entity.RoleType;
+import study.mytest.entity.Role;
+import study.mytest.entity.RoleType;
 import study.mytest.repository.RoleRepository;
 
 import javax.annotation.PostConstruct;

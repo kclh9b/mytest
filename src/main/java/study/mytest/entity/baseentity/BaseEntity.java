@@ -1,4 +1,4 @@
-package study.mytest.Entity.baseentity;
+package study.mytest.entity.baseentity;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

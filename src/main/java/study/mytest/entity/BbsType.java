@@ -1,9 +1,9 @@
-package study.mytest.Entity;
+package study.mytest.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import study.mytest.Entity.baseentity.BaseEntity;
+import study.mytest.entity.baseentity.BaseEntity;
 
 import javax.persistence.*;
 

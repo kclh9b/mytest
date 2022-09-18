@@ -1,10 +1,9 @@
-package study.mytest.Entity;
+package study.mytest.entity;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import study.mytest.Entity.baseentity.BaseEntity;
+import study.mytest.entity.baseentity.BaseEntity;
 import study.mytest.service.account.AccountSaveDto;
 
 import javax.persistence.*;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @SequenceGenerator(
         name = "account_seq_gen",
         initialValue = 1 ,
@@ -33,17 +32,17 @@ public class Account extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RoleUser> roleUser = new ArrayList<>();
+    private List<RoleAccount> roleAccount = new ArrayList<>();
 
     @Embedded
     private Address address;
 
     @Builder
-    public Account(String accountUserId, String password, String name, List<RoleUser> roleUser, Address address) {
+    public Account(String accountUserId, String password, String name, List<RoleAccount> roleAccount, Address address) {
         this.accountUserId = accountUserId;
         this.password = password;
         this.name = name;
-        this.roleUser = roleUser;
+        this.roleAccount = roleAccount;
         this.address = address;
     }
 

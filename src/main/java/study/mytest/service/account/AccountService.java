@@ -5,13 +5,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.mytest.Entity.Account;
-import study.mytest.Entity.Role;
-import study.mytest.Entity.RoleType;
-import study.mytest.Entity.RoleUser;
+import study.mytest.entity.Account;
+import study.mytest.entity.Role;
+import study.mytest.entity.RoleType;
+import study.mytest.entity.RoleAccount;
 import study.mytest.repository.AccountRepository;
 import study.mytest.repository.RoleRepository;
 import study.mytest.repository.RoleUserRepository;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,10 +54,27 @@ public class AccountService {
         Role findRole = roleRepository.findByRoleType(RoleType.BRONZE);
 
         /* RoleUser Persist */
-        RoleUser roleUser = new RoleUser(findRole, account);
+        RoleAccount roleUser = new RoleAccount(findRole, account);
         roleUserRepository.save(roleUser);
 
         return account.getId();
     }
 
+    public long login(HttpServletRequest request, AccountDto accountDto) {
+
+        Optional<Account> optAccount = accountRepository.findByAccountUserId(accountDto.getAccountUserId());
+        Account account = optAccount.orElseThrow(() -> new IllegalArgumentException("잘못된 아이디 입니다."));
+
+        if(!account.getPassword().equals(accountDto.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 올바르지 않습니다.");
+        }
+
+        accountDto = new AccountDto(account.getAccountUserId(), account.getName(), account.getAddress().getAddress1()
+                , account.getAddress().getAddress2(), account.getAddress().getZipcode());
+
+        HttpSession session = request.getSession();
+        session.setAttribute("account", accountDto);
+
+        return account.getId();
+    }
 }

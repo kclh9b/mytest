@@ -1,4 +1,4 @@
-package study.mytest.Entity;
+package study.mytest.entity;
 
 public enum RoleType {
 

@@ -1,10 +1,9 @@
-package study.mytest.Entity;
+package study.mytest.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 
 @Entity
