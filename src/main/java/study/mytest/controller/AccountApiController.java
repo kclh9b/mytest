@@ -6,12 +6,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import study.mytest.dto.common.ResponseDto;
 import study.mytest.config.Constants;
-import study.mytest.entity.Account;
 import study.mytest.repository.AccountRepository;
 import study.mytest.dto.account.AccountDto;
 import study.mytest.dto.account.AccountListDto;
 import study.mytest.dto.account.AccountSaveDto;
-import study.mytest.service.account.AccountService;
+import study.mytest.service.AccountService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -65,7 +64,7 @@ public class AccountApiController extends BaseController{
         AccountDto sessionDto = Optional.ofNullable(session)
                 .map(s -> (AccountDto) s.getAttribute("account"))
                 .orElseThrow(() -> new IllegalStateException("잘못된 접근입니다."));
-        if(!sessionDto.getAccountId().equals(accountId)) {
+        if(!sessionDto.getId().equals(accountId)) {
             throw new IllegalStateException("접근 권한이 없습니다.");
         }
         accountService.update(accountId, accountDto);

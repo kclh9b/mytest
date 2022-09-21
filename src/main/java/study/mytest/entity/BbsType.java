@@ -27,4 +27,7 @@ public class BbsType extends BaseEntity {
 
     private int bbsPage; /* 통일성 위해 필드명 변경 page -> bbsPage */
 
+    public BbsType(String name) {
+        this.name = name;
+    }
 }

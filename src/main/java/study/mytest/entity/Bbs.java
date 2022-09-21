@@ -1,8 +1,10 @@
 package study.mytest.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.mytest.dto.bbs.BbsDto;
 import study.mytest.entity.baseentity.BaseEntity;
 
 import javax.persistence.*;
@@ -31,7 +33,7 @@ public class Bbs extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
-    private Account user;
+    private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bbs_type_id")
@@ -43,5 +45,25 @@ public class Bbs extends BaseEntity {
 
     @OneToMany(mappedBy = "parent")
     private List<Bbs> child = new ArrayList<>();
+
+    @Builder
+    public Bbs(String title, String content, int layer, Account account, BbsType bbsType, Bbs parent) {
+        this.title = title;
+        this.content = content;
+        this.layer = layer;
+        this.account = account;
+        this.bbsType = bbsType;
+        this.parent = parent;
+    }
+
+    public static Bbs createBbs(Account account, BbsType bbsType, BbsDto bbsDto) {
+        return new BbsBuilder()
+                .account(account)
+                .bbsType(bbsType)
+                .title(bbsDto.getTitle())
+                .content(bbsDto.getContent())
+                .layer(0)
+                .build();
+    }
 
 }

@@ -1,6 +1,7 @@
 package study.mytest.entity.baseentity;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -13,6 +14,7 @@ import javax.persistence.MappedSuperclass;
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class BaseEntity extends BaseTimeEntity{
 
     @CreatedBy

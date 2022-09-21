@@ -1,4 +1,4 @@
-package study.mytest.service.account;
+package study.mytest.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import study.mytest.dto.account.AccountListDto;
 import study.mytest.dto.account.AccountSaveDto;
 import study.mytest.entity.Account;
 import study.mytest.repository.AccountRepository;
+import study.mytest.service.AccountService;
 
 import javax.persistence.EntityManager;
 
