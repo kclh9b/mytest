@@ -1,4 +1,4 @@
-package study.mytest.common;
+package study.mytest.dto.common;
 
 import lombok.Data;
 

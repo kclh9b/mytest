@@ -1,10 +1,11 @@
-package study.mytest.service.account;
+package study.mytest.dto.account;
 
 import lombok.Data;
 
 @Data
 public class AccountDto {
 
+    private Long accountId;
     private String accountUserId;
     private String name;
     private String password;
@@ -15,7 +16,8 @@ public class AccountDto {
     public AccountDto() {
     }
 
-    public AccountDto(String accountUserId, String name, String address1, String address2, String zipcode) {
+    public AccountDto(Long accountId, String accountUserId, String name, String address1, String address2, String zipcode) {
+        this.accountId = accountId;
         this.accountUserId = accountUserId;
         this.name = name;
         this.address1 = address1;

@@ -5,6 +5,8 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.domain.Page;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import study.mytest.dto.account.AccountDto;
+import study.mytest.entity.Account;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,8 +23,9 @@ public class Configuration {
                 HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
                         .getRequestAttributes()).getRequest();
                 HttpSession session = request.getSession(false);
-                return Optional.ofNullable(session)
-                        .map(s -> s.getAttribute("account"));
+                return  Optional.ofNullable(session)
+                        .map(s -> (AccountDto) s.getAttribute("account"))
+                        .map(a -> a.getAccountUserId());
             }
         };
     }

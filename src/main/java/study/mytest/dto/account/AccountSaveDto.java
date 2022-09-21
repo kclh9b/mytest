@@ -1,4 +1,4 @@
-package study.mytest.service.account;
+package study.mytest.dto.account;
 
 import lombok.Data;
 

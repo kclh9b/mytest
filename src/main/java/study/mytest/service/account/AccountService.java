@@ -5,13 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.mytest.entity.Account;
-import study.mytest.entity.Role;
-import study.mytest.entity.RoleType;
-import study.mytest.entity.RoleAccount;
+import study.mytest.dto.account.AccountDto;
+import study.mytest.dto.account.AccountListDto;
+import study.mytest.dto.account.AccountSaveDto;
+import study.mytest.entity.*;
 import study.mytest.repository.AccountRepository;
 import study.mytest.repository.RoleRepository;
-import study.mytest.repository.RoleUserRepository;
+import study.mytest.repository.RoleAccountRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,7 +23,7 @@ import java.util.Optional;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final RoleUserRepository roleUserRepository;
+    private final RoleAccountRepository roleUserRepository;
     private final RoleRepository roleRepository;
 
     public AccountListDto findAll(Pageable pageable) {
@@ -33,7 +33,7 @@ public class AccountService {
 
         /* dto변환 */
         Page<AccountDto> pageAccountDtos = pageList
-                .map(a -> new AccountDto(a.getAccountUserId(), a.getName(), a.getAddress().getAddress1()
+                .map(a -> new AccountDto(a.getId(), a.getAccountUserId(), a.getName(), a.getAddress().getAddress1()
                         , a.getAddress().getAddress2(), a.getAddress().getZipcode()));
 
         /* response dto */
@@ -69,12 +69,22 @@ public class AccountService {
             throw new IllegalArgumentException("비밀번호가 올바르지 않습니다.");
         }
 
-        accountDto = new AccountDto(account.getAccountUserId(), account.getName(), account.getAddress().getAddress1()
+        accountDto = new AccountDto(account.getId(), account.getAccountUserId(), account.getName(), account.getAddress().getAddress1()
                 , account.getAddress().getAddress2(), account.getAddress().getZipcode());
 
         HttpSession session = request.getSession();
         session.setAttribute("account", accountDto);
 
+        return account.getId();
+    }
+
+    @Transactional
+    public long update(Long accountId, AccountDto accountDto) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException());
+        Address address = new Address(accountDto.getAddress1(), accountDto.getAddress2(), accountDto.getZipcode());
+        account.changeAddress(address);
+        account.changeName(accountDto.getName());
         return account.getId();
     }
 }

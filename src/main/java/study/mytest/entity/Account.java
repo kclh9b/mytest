@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.mytest.entity.baseentity.BaseEntity;
-import study.mytest.service.account.AccountSaveDto;
+import study.mytest.dto.account.AccountSaveDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -69,4 +69,8 @@ public class Account extends BaseEntity {
         return account;
     }
 
+    public void addRole(RoleAccount roleAccount) {
+        this.roleAccount.add(roleAccount);
+        roleAccount.setAccount(this);
+    }
 }

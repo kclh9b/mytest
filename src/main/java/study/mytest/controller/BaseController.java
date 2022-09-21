@@ -1,6 +1,6 @@
 package study.mytest.controller;
 
-import study.mytest.common.ResponseDto;
+import study.mytest.dto.common.ResponseDto;
 
 public class BaseController {
 
