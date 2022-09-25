@@ -1,6 +1,7 @@
 package study.mytest.dto.account;
 
 import lombok.Data;
+import study.mytest.entity.Account;
 
 @Data
 public class AccountDto {
@@ -16,12 +17,12 @@ public class AccountDto {
     public AccountDto() {
     }
 
-    public AccountDto(Long id, String accountUserId, String name, String address1, String address2, String zipcode) {
-        this.id = id;
-        this.accountUserId = accountUserId;
-        this.name = name;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.zipcode = zipcode;
+    public AccountDto(Account account) {
+        this.id = account.getId();
+        this.accountUserId = account.getAccountUserId();
+        this.name = account.getName();
+        this.address1 = account.getAddress().getAddress1();
+        this.address2 = account.getAddress().getAddress2();
+        this.zipcode = account.getAddress().getZipcode();
     }
 }

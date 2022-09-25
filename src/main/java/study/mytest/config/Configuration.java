@@ -20,12 +20,17 @@ public class Configuration {
         return new AuditorAware<String>() {
             @Override
             public Optional getCurrentAuditor() {
-                HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-                        .getRequestAttributes()).getRequest();
-                HttpSession session = request.getSession(false);
-                return  Optional.ofNullable(session)
+                return Optional.ofNullable((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+                        .map(r -> r.getRequest())
+                        .map(r -> r.getSession(false))
                         .map(s -> (AccountDto) s.getAttribute("account"))
                         .map(a -> a.getAccountUserId());
+//                HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+//                        .getRequestAttributes()).getRequest();
+//                HttpSession session = request.getSession(false);
+//                return  Optional.ofNullable(session)
+//                        .map(s -> (AccountDto) s.getAttribute("account"))
+//                        .map(a -> a.getAccountUserId());
             }
         };
     }

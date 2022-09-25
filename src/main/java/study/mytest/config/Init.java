@@ -19,15 +19,16 @@ public class Init {
 
     @PostConstruct
     private void init() {
-        Role role1 = new Role(RoleType.BRONZE);
-        Role role2 = new Role(RoleType.SILVER);
-        Role role3 = new Role(RoleType.GOLD);
-        roleRepository.save(role1);
-        roleRepository.save(role2);
-        roleRepository.save(role3);
+        Role roleBronze = Role.initCreateRole(RoleType.BRONZE);
+        Role roleSilver = Role.initCreateRole(RoleType.SILVER);
+        Role roleGold = Role.initCreateRole(RoleType.GOLD);
+        roleRepository.save(roleBronze);
+        roleRepository.save(roleSilver);
+        roleRepository.save(roleGold);
 
-//        BbsType free = new BbsType("free");
-//        bbsTypeRepository.save(free);
-//        System.out.println("free = " + free);
+        BbsType free = BbsType.initCreateBbsType("free", 10, 10);
+        BbsType notice = BbsType.initCreateBbsType("notice", 10, 10);
+        bbsTypeRepository.save(free);
+        bbsTypeRepository.save(notice);
     }
 }

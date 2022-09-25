@@ -1,24 +1,18 @@
 package study.mytest.service;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.mytest.dto.account.AccountDto;
-import study.mytest.dto.account.AccountSaveDto;
+import study.mytest.dto.account.AccountFormDto;
 import study.mytest.dto.bbs.BbsDto;
 import study.mytest.entity.*;
 import study.mytest.repository.AccountRepository;
 import study.mytest.repository.BbsTypeRepository;
 
 import javax.persistence.EntityManager;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -58,7 +52,7 @@ class BbsServiceTest {
     }
 
     private long saveAccount(String accountUserId, String name, String password, String address1, String address2, String zipcode) {
-        AccountSaveDto accountSaveDto = new AccountSaveDto(accountUserId, name, password, address1, address2, zipcode);
+        AccountFormDto accountSaveDto = new AccountFormDto(accountUserId, name, password, address1, address2, zipcode);
         long savedId = accountService.save(accountSaveDto);
         return savedId;
     }

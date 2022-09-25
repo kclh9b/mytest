@@ -3,12 +3,15 @@ package study.mytest.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import study.mytest.entity.baseentity.BaseEntity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(
         name="bbs_type_seq_gen",
@@ -23,11 +26,20 @@ public class BbsType extends BaseEntity {
 
     private String name;
 
-    private int bbsRow; /* 예약어로 필드명 변경 row -> bbsRolw */
+    private Integer bbsRow; /* 예약어로 필드명 변경 row -> bbsRolw */
 
-    private int bbsPage; /* 통일성 위해 필드명 변경 page -> bbsPage */
+    private Integer bbsPage; /* 통일성 위해 필드명 변경 page -> bbsPage */
 
     public BbsType(String name) {
         this.name = name;
+    }
+
+    public static BbsType initCreateBbsType(String name, Integer row, Integer page) {
+        BbsType bbsType = new BbsType(name);
+        bbsType.bbsRow = row;
+        bbsType.bbsPage = page;
+        bbsType.createdBy = "admin";
+        bbsType.lastModifiedBy = "admin";
+        return bbsType;
     }
 }

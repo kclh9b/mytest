@@ -3,8 +3,9 @@ package study.mytest.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import study.mytest.entity.baseentity.BaseEntity;
-import study.mytest.dto.account.AccountSaveDto;
+import study.mytest.dto.account.AccountFormDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicInsert
 @NoArgsConstructor
 @SequenceGenerator(
         name = "account_seq_gen",
@@ -54,7 +56,7 @@ public class Account extends BaseEntity {
         this.address = address;
     }
 
-    public static Account createAccount(AccountSaveDto saveDto) {
+    public static Account createAccount(AccountFormDto saveDto) {
         Address address = new Address(saveDto.getAddress1(), saveDto.address2, saveDto.zipcode);
         Account account = new AccountBuilder()
                 .accountUserId(saveDto.getAccountUserId())

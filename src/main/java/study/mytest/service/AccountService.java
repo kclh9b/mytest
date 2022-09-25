@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.mytest.dto.account.AccountDto;
 import study.mytest.dto.account.AccountListDto;
-import study.mytest.dto.account.AccountSaveDto;
+import study.mytest.dto.account.AccountFormDto;
 import study.mytest.entity.*;
 import study.mytest.repository.AccountRepository;
 import study.mytest.repository.RoleRepository;
@@ -33,8 +33,7 @@ public class AccountService {
 
         /* dto변환 */
         Page<AccountDto> pageAccountDtos = pageList
-                .map(a -> new AccountDto(a.getId(), a.getAccountUserId(), a.getName(), a.getAddress().getAddress1()
-                        , a.getAddress().getAddress2(), a.getAddress().getZipcode()));
+                .map(a -> new AccountDto(a));
 
         /* response dto */
         AccountListDto accountListDto =
@@ -44,7 +43,7 @@ public class AccountService {
     }
 
     @Transactional
-    public long save(AccountSaveDto saveDto) {
+    public long save(AccountFormDto saveDto) {
 
         /* Account persist */
         Account account = Account.createAccount(saveDto);
@@ -69,8 +68,7 @@ public class AccountService {
             throw new IllegalArgumentException("비밀번호가 올바르지 않습니다.");
         }
 
-        accountDto = new AccountDto(account.getId(), account.getAccountUserId(), account.getName(), account.getAddress().getAddress1()
-                , account.getAddress().getAddress2(), account.getAddress().getZipcode());
+        accountDto = new AccountDto(account);
 
         HttpSession session = request.getSession();
         session.setAttribute("account", accountDto);

@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import study.mytest.dto.bbs.BbsDto;
 import study.mytest.entity.baseentity.BaseEntity;
 
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(
         name = "bbs_seq_gen",
@@ -29,6 +32,7 @@ public class Bbs extends BaseEntity {
 
     private String content;
 
+    @ColumnDefault("0")
     private int layer;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,6 +68,11 @@ public class Bbs extends BaseEntity {
                 .content(bbsDto.getContent())
                 .layer(0)
                 .build();
+    }
+
+    public void updateBbs(BbsDto bbsDto) {
+        this.title = bbsDto.getTitle();
+        this.content = bbsDto.getContent();
     }
 
 }

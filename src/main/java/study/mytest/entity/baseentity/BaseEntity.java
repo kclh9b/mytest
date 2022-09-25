@@ -3,6 +3,9 @@ package study.mytest.entity.baseentity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,6 +18,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+//@DynamicUpdate
 public class BaseEntity extends BaseTimeEntity{
 
     @CreatedBy
@@ -23,7 +27,7 @@ public class BaseEntity extends BaseTimeEntity{
     @LastModifiedBy
     protected String lastModifiedBy;
 
-    @Column(columnDefinition = "int2 default 1")
-    protected String useYn;
+    @ColumnDefault("1")
+    protected Integer useYn;
 
 }

@@ -7,10 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import study.mytest.config.Constants;
 import study.mytest.dto.account.AccountListDto;
-import study.mytest.dto.account.AccountSaveDto;
+import study.mytest.dto.account.AccountFormDto;
 import study.mytest.entity.Account;
 import study.mytest.repository.AccountRepository;
-import study.mytest.service.AccountService;
 
 import javax.persistence.EntityManager;
 
@@ -58,7 +57,7 @@ class AccountServiceTest {
     }
 
     private long saveAccount(String accountUserId, String name, String password, String address1, String address2, String zipcode) {
-        AccountSaveDto accountSaveDto = new AccountSaveDto(accountUserId, name, password, address1, address2, zipcode);
+        AccountFormDto accountSaveDto = new AccountFormDto(accountUserId, name, password, address1, address2, zipcode);
         long savedId = accountService.save(accountSaveDto);
         return savedId;
     }

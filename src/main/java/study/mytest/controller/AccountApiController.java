@@ -9,7 +9,7 @@ import study.mytest.config.Constants;
 import study.mytest.repository.AccountRepository;
 import study.mytest.dto.account.AccountDto;
 import study.mytest.dto.account.AccountListDto;
-import study.mytest.dto.account.AccountSaveDto;
+import study.mytest.dto.account.AccountFormDto;
 import study.mytest.service.AccountService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +30,7 @@ public class AccountApiController extends BaseController{
     }
 
     @PostMapping("/account")
-    public long saveAccount(@RequestBody AccountSaveDto saveDto) {
+    public long saveAccount(@RequestBody AccountFormDto saveDto) {
         long savedId = accountService.save(saveDto);
         return savedId;
     }
@@ -38,8 +38,7 @@ public class AccountApiController extends BaseController{
     @GetMapping("/account/{accountId}")
     public ResponseDto<AccountDto> accountInfo(@PathVariable Long accountId) {
         return accountRepository.findById(accountId)
-                .map(a -> new AccountDto(a.getId(), a.getAccountUserId(), a.getName(), a.getAddress().getAddress1()
-                        , a.getAddress().getAddress2(), a.getAddress().getZipcode()))
+                .map(a -> new AccountDto(a))
                 .map(a -> getSuccessResponseDto(a))
                 .orElse(null);
     }

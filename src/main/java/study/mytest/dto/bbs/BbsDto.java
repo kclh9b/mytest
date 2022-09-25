@@ -13,6 +13,9 @@ public class BbsDto {
     private String createdBy;
     private LocalDateTime lastModifiedDate;
 
+    public BbsDto() {
+    }
+
     public BbsDto(String title, String content) {
         this.title = title;
         this.content = content;
