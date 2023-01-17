@@ -3,8 +3,9 @@ package study.mytest.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.mytest.dto.Comment.CommentDto;
+import study.mytest.dto.comment.CommentDto;
 import study.mytest.dto.account.AccountDto;
+import study.mytest.dto.bbs.BbsDetailDto;
 import study.mytest.dto.bbs.BbsDto;
 import study.mytest.entity.Account;
 import study.mytest.entity.Bbs;
@@ -43,7 +44,7 @@ public class BbsService {
     @Transactional
     public long update(Long id, BbsDto bbsDto) {
         Bbs bbs = bbsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 게시글입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
         bbs.updateBbs(bbsDto);
         return bbs.getId();
     }
@@ -70,5 +71,15 @@ public class BbsService {
         Comment comment = Comment.createNestedComment(parentComment, commentDto);
         commentRepository.save(comment);
         return comment.getId();
+    }
+
+    public BbsDto findOneDetail(Long bbsId) {
+        Bbs bbs = bbsRepository.findOneDetail(bbsId);
+        return new BbsDto(bbs);
+    }
+
+    public BbsDetailDto findOneDetail2(Long bbsId) {
+        BbsDetailDto bbsDetailDto = bbsRepository.findOneDetail2(bbsId);
+        return bbsDetailDto;
     }
 }

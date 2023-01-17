@@ -27,9 +27,6 @@ class BbsServiceTest {
     @Test
     public void createBbs() throws Exception {
         //given
-        BbsType bbsType = new BbsType("free");
-        bbsTypeRepository.save(bbsType);
-
         long savedId = saveAccount("user1", "name1", "password1", "address1", "address2", "zipcode");
 
         em.flush();
@@ -49,6 +46,15 @@ class BbsServiceTest {
 
         //then
         Assertions.assertThat(result.getCreatedBy()).isEqualTo(accountDto.getAccountUserId());
+
+        //when
+        em.flush();
+        em.clear();
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+        BbsDto result2 = bbsService.findOneDetail(1L);
+        System.out.println("result2 = " + result2);
     }
 
     private long saveAccount(String accountUserId, String name, String password, String address1, String address2, String zipcode) {

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import study.mytest.dto.Comment.CommentDto;
+import study.mytest.dto.comment.CommentDto;
 import study.mytest.entity.baseentity.BaseEntity;
 
 import javax.persistence.*;

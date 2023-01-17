@@ -1,12 +1,8 @@
 package study.mytest.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import study.mytest.dto.Comment.CommentDto;
+import org.springframework.web.bind.annotation.*;
+import study.mytest.dto.comment.CommentDto;
 import study.mytest.dto.account.AccountDto;
 import study.mytest.dto.bbs.BbsDto;
 import study.mytest.dto.common.ResponseDto;
@@ -43,6 +39,13 @@ public class BbsApiController extends BaseController{
     public ResponseDto<Long> createNestedComment(@PathVariable Long commentId, @RequestBody CommentDto commentDto) {
         long savedId = bbsService.createNestedComment(commentId, commentDto);
         return getSuccessResponseDto(savedId);
+    }
+
+    @GetMapping("/bbs/{type}/{bbsId}")
+    public ResponseDto<BbsDto> findOneDetail(@PathVariable Long bbsId) {
+        BbsDto bbsDto = bbsService.findOneDetail(bbsId);
+        //BbsDetailDto bbsDetailDto = bbsService.findOneDetail2(bbsId);
+        return getSuccessResponseDto(bbsDto);
     }
 
 }

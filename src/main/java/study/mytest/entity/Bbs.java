@@ -43,12 +43,15 @@ public class Bbs extends BaseEntity {
     @JoinColumn(name = "bbs_type_id")
     private BbsType bbsType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
     private Bbs parent;
 
     @OneToMany(mappedBy = "parent")
     private List<Bbs> child = new ArrayList<>();
+
+    @OneToMany(mappedBy = "bbs")
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Bbs(String title, String content, int layer, Account account, BbsType bbsType, Bbs parent) {
